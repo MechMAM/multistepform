@@ -4,16 +4,28 @@ import "./styles.css";
 
 const steps = [
   {
-    id: "PERSONAL",
-    title: "Dados pessoais"
+    id: "GENERAL_INFO",
+    title: "Informações Gerais"
   },
   {
-    id: "SHIPPING",
-    title: "Endereço de entrega"
+    id: "ADRESS",
+    title: "Informações de Endereço"
   },
   {
-    id: "PAYMENT",
-    title: "Dados de pagamento"
+    id: "ACCESSIBILITY_SERVICES",
+    title: "Informações de Acessibilidade e Serviços"
+  },
+  {
+    id: "PICTURES",
+    title: "Fotos do espaço"
+  },
+  {
+    id: "PRICES",
+    title: "Informações de limpeza e locação"
+  },
+  {
+    id: "DESCRIPTION",
+    title: "Informações sobre o espaço"
   }
 ];
 
@@ -21,19 +33,52 @@ export default function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    city: "",
-    street: "",
-    street_number: "",
-    card_number: "",
-    card_name: "",
-    card_validity: ""
+    hasProperty: false,
+    propertyName: "",
+    spaceName: "",
+    capacity: "",
+    area: "",
+    differentials: [],
+    purposes: [],
+    adress: {
+      CEP: "",
+      streetName: "",
+      number: "",
+      country:"",
+      state:"",
+      city:"",
+      district:"",
+      complement:""
+    },
+    parking: {
+      hasParking: false,
+      spotsNumber: "",
+      paidParking: false,
+      hourlyPrice: ""
+    },
+    accessibility: [],
+    includedServices: [],
+    additionalServices: [],
+    photos: {
+      originalName: "",
+      fileName: "",
+      path: "",
+      description: "",
+    },
+    cleaningTime:"",
+    cleaningPrice:"",
+    hourlyReservationPrice:"",
+    discountPercentage:"",
+    spaceDescription:"",
+    surroundingsAdvantages:""
   });
 
   function handleNext() {
     setCurrentStep((prevState) => prevState + 1);
+  }
+
+  function handlePrevious() {
+    setCurrentStep((prevState) => prevState - 1);
   }
 
   function handleInputChange(event) {
@@ -65,13 +110,16 @@ export default function App() {
 
       <form className="steps-form" onSubmit={handleSubmit}>
         <div className="fields-container">
-          <p>{steps[currentStep].title}</p>
+          <h2>{steps[currentStep].title}</h2>
 
-          {steps[currentStep].id === "PERSONAL" && (
+          {steps[currentStep].id === "GENERAL_INFO" && (
             <div className="fields">
               <div className="field">
+                <label htmlFor="">
+                  Seu espaço está inserido em uma propriedade
+                </label>
                 <input
-                  type="text"
+                  type="radio"
                   placeholder="Nome"
                   name="name"
                   onChange={handleInputChange}
@@ -99,7 +147,7 @@ export default function App() {
             </div>
           )}
 
-          {steps[currentStep].id === "SHIPPING" && (
+          {steps[currentStep].id === "ADRESS" && (
             <div className="fields">
               <div className="field">
                 <input
@@ -131,7 +179,7 @@ export default function App() {
             </div>
           )}
 
-          {steps[currentStep].id === "PAYMENT" && (
+          {steps[currentStep].id === "ACCESSIBILITY_SERVICES" && (
             <div className="fields">
               <div className="field">
                 <input
@@ -163,16 +211,39 @@ export default function App() {
             </div>
           )}
 
-          {currentStep < steps.length - 1 && (
-            <button className="button next" type="button" onClick={handleNext}>
-              Next
-            </button>
+
+
+          {currentStep===0 && (
+            <div className="buttons">
+              <button className="button next" type="button">
+                Voltar
+              </button>
+              <button className="button next" type="button" onClick={handleNext}>
+                Próxima Etapa
+              </button>
+            </div>
+          )}
+
+          {(currentStep < steps.length - 1) && currentStep!=0 && (
+            <div className="buttons">
+              <button className="button next" type="button" onClick={handlePrevious}>
+                Voltar
+              </button>
+              <button className="button next" type="button" onClick={handleNext}>
+                Próxima Etapa
+              </button>
+            </div>
           )}
 
           {currentStep === steps.length - 1 && (
-            <button className="button submit" type="submit">
-              Enviar
-            </button>
+            <div className="buttons">
+              <button className="button next" type="button" onClick={handlePrevious}>
+                Voltar
+              </button>
+              <button className="button submit" type="submit">
+                Enviar
+              </button>
+            </div>
           )}
 
           {loading && <h1 className="loader">Enviando...</h1>}

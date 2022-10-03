@@ -18,6 +18,9 @@ body {
   padding: 0;
   display: block;
   margin: 0 auto;
+  border-style: solid;
+  border-color: #31357B;
+  border-width: 2px;
   border-radius: 18px;
   box-shadow: 8px 8px 24px #ccc;
   max-width: 70%;
@@ -28,6 +31,7 @@ body {
 .fields-container {
   padding: 24px 24px 40px;
   width: 100%;
+  background: #31357B14;
 }
 
 .steps-form .field {
@@ -45,17 +49,22 @@ body {
 }
 
 .button {
-  background: teal;
+  background: #31357B;
   border: 0;
   padding: 8px;
   color: #fff;
   border-radius: 40px;
-  width: 100%;
+  width: 45%;
   padding: 16px;
   outline: none;
   cursor: pointer;
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
 }
 
 .step-guide {
